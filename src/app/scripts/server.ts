@@ -14,3 +14,8 @@ export const setAuthToken = (token: string) => {
         httpOnly: true
     })
 };
+
+export const getIsAuthenticated = () : boolean => {
+    const isAuthenticated = cookies().get("isAuthenticated")?.value;
+    return isAuthenticated === "true"; 
+};

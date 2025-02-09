@@ -33,9 +33,9 @@ const LoginForm = () => {
     return (
         <form>
             <label htmlFor='username' className='form-label'><Typography variant='body1' color='textPrimary'>Username</Typography></label>
-            <input type='text' className='form-control' value={username} onChange={(e) => setUsername(e.target.value)} />
+            <input type='text' className='form-control' value={username} onChange={(e) => setUsername(e.target.value)} id='username' />
             <label htmlFor='password' className='form-label'><Typography variant='body1' color='textPrimary'>Password</Typography></label>
-            <input type='password' className='form-control' value={password} onChange={(e) => setPassword(e.target.value)} />
+            <input type='password' className='form-control' value={password} onChange={(e) => setPassword(e.target.value)} id='password' />
             <Button variant='contained' className='my-2' onClick={handleLogin}>Log in</Button>
             <Typography variant='body1' color='textPrimary'>You don't have an account? <Link href="/create-account">Create one</Link> now!</Typography>
             <Alert hidden={errorState} severity='error' className='mt-5'>
