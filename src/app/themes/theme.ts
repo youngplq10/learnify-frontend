@@ -20,6 +20,9 @@ export const theme = createTheme ({
     info: {
       main: '#306de4',
     },
+    error: {
+        main: '#C60031'
+    }
   },
   typography: {
     fontFamily: 'Kanit',

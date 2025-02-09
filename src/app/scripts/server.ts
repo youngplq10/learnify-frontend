@@ -1,0 +1,16 @@
+"use server";
+
+import { jwtDecode } from "jwt-decode";
+import { cookies } from "next/headers";
+
+export const setAuthToken = (token: string) => {
+    cookies().set("jwt", token, {
+        httpOnly: true,
+    });
+    cookies().set("isAuthenticated", "true", {
+        httpOnly: true,
+    });
+    cookies().set("username", jwtDecode(token).sub || "", {
+        httpOnly: true
+    })
+};
