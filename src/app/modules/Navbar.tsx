@@ -5,7 +5,7 @@ import Navigation from '@/app/components/Navigation'
 const Navbar = () => {
     return (
         <div className='container-lg my-4'>
-            <div className="row mx-2">
+            <div className="row">
                 <div className="col-2">
                     <Logo />
                 </div>
