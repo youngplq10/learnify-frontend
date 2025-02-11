@@ -19,3 +19,10 @@ export const getIsAuthenticated = () : boolean => {
     const isAuthenticated = cookies().get("isAuthenticated")?.value;
     return isAuthenticated === "true"; 
 };
+
+export const logout = () => {
+    cookies().delete("jwt")
+    cookies().delete("isAuthenticated")
+    cookies().delete("username")
+    window.location.href = "/"
+}
