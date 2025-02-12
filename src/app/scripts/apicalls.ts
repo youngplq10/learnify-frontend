@@ -3,6 +3,7 @@
 import axios from "axios"
 import { setAuthToken } from "./server";
 import { course } from "../interfaces/interfaces";
+import { Exception } from "sass";
 
 export const login = async (username: string, password: string) : Promise<Boolean> => {
     try {
@@ -58,3 +59,17 @@ export const getAllCourses = async () : Promise<course[]> => {
         return []
     }
 }
+
+export const getCourse = async (title: string) : Promise<course> => {
+    try {
+        const res = await axios.get(process.env.NEXT_PRIVATE_API + "/api/public/course/" + title, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+
+        return res.data as course
+    } catch{
+        throw new Error("Failed to fetch course");
+    }
+} 

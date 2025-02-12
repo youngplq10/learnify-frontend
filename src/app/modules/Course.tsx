@@ -15,7 +15,7 @@ const Course = () => {
     return (
         <div className="container-lg my-5">
             <Breadcrumb pathArray={pathArray} />
-            <CourseDetails />
+            <CourseDetails title={pathArray[2]} />
         </div>
     );
 };

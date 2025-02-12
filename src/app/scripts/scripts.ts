@@ -3,5 +3,5 @@ export const parseToLink = (link: string) : string => {
 }
 
 export const parseFromLinkToString = (link: string) : string => {
-    return link.replaceAll("-", " ");
+    return link.replaceAll("-", " ").replace(/\b\w/g, (char) => char.toUpperCase());
 }

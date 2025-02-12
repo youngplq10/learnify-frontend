@@ -2,24 +2,43 @@
 
 import { Accordion, AccordionDetails, AccordionSummary, Button, Typography } from '@mui/material'
 import Image from 'next/image'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { getCourse } from '../scripts/apicalls';
+import { parseFromLinkToString } from '../scripts/scripts';
+import { course } from '../interfaces/interfaces';
 
-const CourseDetails = () => {
+const CourseDetails = ({ title } : { title: string }) => {
+    const [course, setCourse] = useState<course>();
+    const [loading, setLoading] = useState(true)
+
+    useEffect(() => {
+        if (title!==undefined) { 
+            const fetchCourse = async () => {
+                const course = await getCourse(decodeURIComponent(parseFromLinkToString(title)));
+                setCourse(course);
+                setLoading(false)
+            }
+            fetchCourse();
+        }
+    }, [title])
+
+    if (loading) return <p>loading</p>
+
     return (
         <>
             <div className="row my-5">
                 <div className="col-6 p-3 position-relative" style={{ height: "350px" }}>
                     <Image
-                        src="https://gratisography.com/wp-content/uploads/2024/11/gratisography-augmented-reality-800x525.jpg"
+                        src={"http://localhost:8080" + course?.bannerImageLink}
                         fill
                         alt='course thumbnail'
                         unoptimized
                         />
                 </div>
                 <div className="col-6 p-5 my-auto">
-                    <Typography variant='h4' color='textPrimary'>Java Programming: From Beginner to Pro</Typography>
-                    <Typography variant='body2' color='textPrimary'>Learn Java from the ground up! This course covers core concepts, OOP, multithreading, database integration, and Spring Boot. Hands-on projects will equip you to build real-world Java applications.</Typography>
+                    <Typography variant='h4' color='textPrimary'>{ course?.title }</Typography>
+                    <Typography variant='body2' color='textPrimary'>{ course?.description }</Typography>
                     <Button variant='contained' className='mt-3'>Sign up for the course</Button>
                 </div>
             </div>
