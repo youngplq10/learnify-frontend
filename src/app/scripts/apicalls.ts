@@ -2,6 +2,7 @@
 
 import axios from "axios"
 import { setAuthToken } from "./server";
+import { course } from "../interfaces/interfaces";
 
 export const login = async (username: string, password: string) : Promise<Boolean> => {
     try {
@@ -41,5 +42,19 @@ export const register = async (username: string, email: string, password: string
         return true;
     } catch {
         return false;
+    }
+}
+
+export const getAllCourses = async () : Promise<course[]> => {
+    try {
+        const res = await axios.get(process.env.NEXT_PRIVATE_API + "/api/public/courses", {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+
+        return res.data as course[]
+    } catch {
+        return []
     }
 }

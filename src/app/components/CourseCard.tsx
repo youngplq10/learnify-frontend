@@ -1,5 +1,8 @@
+"use client"
+
 import { Button, Card, CardActions, CardContent, CardMedia, Typography } from '@mui/material'
 import React from 'react'
+import { parseToLink } from '../scripts/scripts'
 
 const CourseCard = ({title, author, description, image} : {title: string, author: string, description: string, image: string}) => {
     return (
@@ -13,7 +16,7 @@ const CourseCard = ({title, author, description, image} : {title: string, author
                 <Typography variant='body2' color='textPrimary'>{ description.substring(0, 80) + "..." }</Typography>
             </CardContent>
             <CardActions>
-                <Button variant='contained' href='/course/author/name'>See course</Button>
+                <Button variant='contained' href={`/course/${author}/${encodeURIComponent(parseToLink(title))}`}>See course</Button>
             </CardActions>
         </Card>
     )

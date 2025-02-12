@@ -7,6 +7,7 @@ import { logout } from '../scripts/server'
 const LogoutUI = () => {
     const handleLogout = () => {
         logout()
+        window.location.href = "/"
     }
 
     return (

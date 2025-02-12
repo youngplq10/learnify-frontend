@@ -24,5 +24,4 @@ export const logout = () => {
     cookies().delete("jwt")
     cookies().delete("isAuthenticated")
     cookies().delete("username")
-    window.location.href = "/"
 }
