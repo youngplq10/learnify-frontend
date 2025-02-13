@@ -2,7 +2,7 @@
 
 import axios from "axios"
 import { getAllCookies, setAuthToken } from "./server";
-import { course } from "../interfaces/interfaces";
+import { course, user } from "../interfaces/interfaces";
 
 export const login = async (username: string, password: string) : Promise<Boolean> => {
     try {
@@ -98,3 +98,20 @@ export const signUpForCourse = async (title: string): Promise<boolean> => {
         throw new Error("Failed to sign up for course");
     }
 };
+
+export const getUserData = async () : Promise<user> => {
+    try {
+        const { username, jwt } = await getAllCookies();
+        
+        const user = await axios.get(process.env.NEXT_PRIVATE_API + "/api/auth/user/" + username?.value, {
+            headers: {
+                'Authorization': 'Bearer ' + jwt?.value,
+                'Content-Type': 'application/json'
+            }
+        })
+
+        return user.data as user
+    } catch{
+        throw new Error("failed fetching user's data")
+    }
+}

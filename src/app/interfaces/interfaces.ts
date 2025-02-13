@@ -14,6 +14,8 @@ export interface user{
     username: string,
     email: string,
     createdAtDate: Date,
+    creatingCourses: course[],
+    learningCourses: course[],
 }
 
 export interface review{

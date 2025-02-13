@@ -4,13 +4,14 @@ import { Accordion, AccordionDetails, AccordionSummary, Button, Dialog, DialogTi
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { getCourse, signUpForCourse } from '../scripts/apicalls';
+import { getCourse, getUserData, signUpForCourse } from '../scripts/apicalls';
 import { parseFromLinkToString } from '../scripts/scripts';
-import { course } from '../interfaces/interfaces';
-import { getIsAuthenticated } from '../scripts/server';
+import { course, user } from '../interfaces/interfaces';
+import { getAllCookies, getIsAuthenticated } from '../scripts/server';
 
 const CourseDetails = ({ title } : { title: string }) => {
     const [course, setCourse] = useState<course>();
+    const [user, setUser] = useState<user>();
     const [loading, setLoading] = useState(true);
     const [isLogged, setIsLogged] = useState(false);
     const [popWindow, setPopWindow] = useState(false);
@@ -20,6 +21,8 @@ const CourseDetails = ({ title } : { title: string }) => {
             const fetchCourse = async () => {
                 const course = await getCourse(decodeURIComponent(parseFromLinkToString(title)));
                 const isAuth = await getIsAuthenticated();
+                const user = await getUserData();
+                setUser(user)
                 setCourse(course);
                 setIsLogged(isAuth)
                 setLoading(false)
@@ -41,6 +44,8 @@ const CourseDetails = ({ title } : { title: string }) => {
     }
 
     if (loading) return <p>loading</p>
+
+    console.log(user)
 
     return (
         <>
