@@ -25,3 +25,10 @@ export const logout = () => {
     cookies().delete("isAuthenticated")
     cookies().delete("username")
 }
+
+export const getAllCookies = () => {
+    return {
+        username: cookies().get("username"),
+        jwt: cookies().get("jwt")
+    }
+}

@@ -1,9 +1,8 @@
 "use server"
 
 import axios from "axios"
-import { setAuthToken } from "./server";
+import { getAllCookies, setAuthToken } from "./server";
 import { course } from "../interfaces/interfaces";
-import { Exception } from "sass";
 
 export const login = async (username: string, password: string) : Promise<Boolean> => {
     try {
@@ -73,3 +72,29 @@ export const getCourse = async (title: string) : Promise<course> => {
         throw new Error("Failed to fetch course");
     }
 } 
+
+export const signUpForCourse = async (title: string): Promise<boolean> => {
+    const formData = new FormData();
+
+    try {
+        const { username, jwt } = await getAllCookies();
+        
+        formData.append("username", username?.value || "");
+        formData.append("courseTitle", title)
+
+        const res = await axios.post(
+            process.env.NEXT_PRIVATE_API + "/api/auth/sign-up-for-course", formData,
+            {
+                headers: {
+                    'Authorization': 'Bearer ' + jwt?.value,
+                }
+            }
+        );
+
+        console.log(res);
+        return true;
+    } catch (error) {
+        console.error(error);
+        throw new Error("Failed to sign up for course");
+    }
+};

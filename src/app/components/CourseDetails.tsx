@@ -1,27 +1,44 @@
 "use client"
 
-import { Accordion, AccordionDetails, AccordionSummary, Button, Typography } from '@mui/material'
+import { Accordion, AccordionDetails, AccordionSummary, Button, Dialog, DialogTitle, Typography } from '@mui/material'
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { getCourse } from '../scripts/apicalls';
+import { getCourse, signUpForCourse } from '../scripts/apicalls';
 import { parseFromLinkToString } from '../scripts/scripts';
 import { course } from '../interfaces/interfaces';
+import { getIsAuthenticated } from '../scripts/server';
 
 const CourseDetails = ({ title } : { title: string }) => {
     const [course, setCourse] = useState<course>();
-    const [loading, setLoading] = useState(true)
+    const [loading, setLoading] = useState(true);
+    const [isLogged, setIsLogged] = useState(false);
+    const [popWindow, setPopWindow] = useState(false);
 
     useEffect(() => {
         if (title!==undefined) { 
             const fetchCourse = async () => {
                 const course = await getCourse(decodeURIComponent(parseFromLinkToString(title)));
+                const isAuth = await getIsAuthenticated();
                 setCourse(course);
+                setIsLogged(isAuth)
                 setLoading(false)
             }
             fetchCourse();
         }
     }, [title])
+
+    const handleSignUpForCourse = () => {
+        if (isLogged) {
+            signUpForCourse(course?.title || "")
+        } else {
+            setPopWindow(true)
+        }
+    }
+
+    const handleHidePopWindow = () => {
+        setPopWindow(false)
+    }
 
     if (loading) return <p>loading</p>
 
@@ -39,7 +56,7 @@ const CourseDetails = ({ title } : { title: string }) => {
                 <div className="col-6 p-5 my-auto">
                     <Typography variant='h4' color='textPrimary'>{ course?.title }</Typography>
                     <Typography variant='body2' color='textPrimary'>{ course?.description }</Typography>
-                    <Button variant='contained' className='mt-3'>Sign up for the course</Button>
+                    <Button variant='contained' className='mt-3' onClick={handleSignUpForCourse}>Sign up for the course</Button>
                 </div>
             </div>
 
@@ -58,6 +75,11 @@ const CourseDetails = ({ title } : { title: string }) => {
                     </Accordion>
                 </div>
             </div>
+
+            <Dialog open={popWindow} onClose={handleHidePopWindow}>
+                <DialogTitle sx={{ padding: 5 }}>You need to be logged in to sign up for the course!</DialogTitle>
+                <Button variant='contained' className='mt-3' href='/sign-up' sx={{ margin: 5 }}>Sign up</Button>
+            </Dialog>
         </>
     )
 }
