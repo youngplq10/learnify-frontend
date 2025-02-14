@@ -50,7 +50,7 @@ const CourseDetails = ({ title } : { title: string }) => {
     return (
         <>
             <div className="row my-5">
-                <div className="col-6 p-3 position-relative" style={{ height: "350px" }}>
+                <div className="col-12 col-md-6 p-3 position-relative" style={{ height: "350px" }}>
                     <Image
                         src={"http://localhost:8080" + course?.bannerImageLink}
                         fill
@@ -58,7 +58,7 @@ const CourseDetails = ({ title } : { title: string }) => {
                         unoptimized
                         />
                 </div>
-                <div className="col-6 p-5 my-auto">
+                <div className="col-12 col-md-6 p-5 my-auto">
                     <Typography variant='h4' color='textPrimary'>{ course?.title }</Typography>
                     <Typography variant='body2' color='textPrimary'>{ course?.description }</Typography>
                     <Button variant='contained' className='mt-3' onClick={handleSignUpForCourse}>Sign up for the course</Button>
@@ -66,7 +66,7 @@ const CourseDetails = ({ title } : { title: string }) => {
             </div>
 
             <div className="row my-5">
-                <div className="col-6">
+                <div className="col-12 col-md-6">
                     <Accordion className='border'>
                         <AccordionSummary expandIcon={<ExpandMoreIcon sx={{ color: "text.primary" }} />}>
                             <Typography variant='body1' color='textPrimary'>Title of lesson no 1</Typography>
