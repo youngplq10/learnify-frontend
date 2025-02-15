@@ -2,7 +2,7 @@
 
 import axios from "axios"
 import { getAllCookies, setAuthToken } from "./server";
-import { course, user } from "../interfaces/interfaces";
+import { category, course, user } from "../interfaces/interfaces";
 
 export const login = async (username: string, password: string) : Promise<Boolean> => {
     try {
@@ -113,5 +113,41 @@ export const getUserData = async () : Promise<user | null> => {
         return user.data as user
     } catch{
         return null
+    }
+}
+
+export const getCategories = async () : Promise<category[]> => {
+    try {
+        const res = await axios.get(process.env.NEXT_PRIVATE_API + "/api/public/categories", {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+
+        return res.data as category[]
+    } catch {
+        throw new Error("Server error")
+    }
+}
+
+export const createCourse = async (formData: FormData) => {
+    try {
+        const { username, jwt } = await getAllCookies();
+
+        formData.append("username", username?.value || "")
+
+        console.log(formData.get("thumbnail"))
+
+        const res = await axios.post(process.env.NEXT_PRIVATE_API + "/api/auth/course", formData, {
+            headers: {
+                'Authorization': 'Bearer ' + jwt?.value,
+                'Content-Type': 'multipart/form-data'
+            },
+            transformRequest: [(data) => data],
+        })
+
+        console.log(res)
+    } catch (error) {
+        console.log(error)
     }
 }
