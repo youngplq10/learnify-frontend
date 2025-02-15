@@ -99,7 +99,7 @@ export const signUpForCourse = async (title: string): Promise<boolean> => {
     }
 };
 
-export const getUserData = async () : Promise<user> => {
+export const getUserData = async () : Promise<user | null> => {
     try {
         const { username, jwt } = await getAllCookies();
         
@@ -112,6 +112,6 @@ export const getUserData = async () : Promise<user> => {
 
         return user.data as user
     } catch{
-        throw new Error("failed fetching user's data")
+        return null
     }
 }

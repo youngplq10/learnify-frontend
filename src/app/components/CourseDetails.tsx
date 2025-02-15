@@ -11,7 +11,7 @@ import { getAllCookies, getIsAuthenticated } from '../scripts/server';
 
 const CourseDetails = ({ title } : { title: string }) => {
     const [course, setCourse] = useState<course>();
-    const [user, setUser] = useState<user>();
+    const [user, setUser] = useState<user | null>();
     const [loading, setLoading] = useState(true);
     const [isLogged, setIsLogged] = useState(false);
     const [popWindow, setPopWindow] = useState(false);
@@ -22,7 +22,9 @@ const CourseDetails = ({ title } : { title: string }) => {
                 const course = await getCourse(decodeURIComponent(parseFromLinkToString(title)));
                 const isAuth = await getIsAuthenticated();
                 const user = await getUserData();
-                setUser(user)
+                if (user!==null){
+                    setUser(user)
+                }
                 setCourse(course);
                 setIsLogged(isAuth)
                 setLoading(false)
@@ -43,9 +45,9 @@ const CourseDetails = ({ title } : { title: string }) => {
         setPopWindow(false)
     }
 
-    if (loading) return <p>loading</p>
+    const isParticipating = user?.learningCourses.some(c => c.id.timestamp === course?.id.timestamp)
 
-    console.log(user)
+    if (loading) return <p>loading</p>
 
     return (
         <>
@@ -61,7 +63,12 @@ const CourseDetails = ({ title } : { title: string }) => {
                 <div className="col-6 p-5 my-auto">
                     <Typography variant='h4' color='textPrimary'>{ course?.title }</Typography>
                     <Typography variant='body2' color='textPrimary'>{ course?.description }</Typography>
-                    <Button variant='contained' className='mt-3' onClick={handleSignUpForCourse}>Sign up for the course</Button>
+
+                    { !isParticipating ? (
+                        <Button variant='contained' className='mt-3' onClick={handleSignUpForCourse}>Sign up for the course</Button>
+                    ) : (
+                        <Button variant='contained' className='mt-3' onClick={handleSignUpForCourse}>Leave the course</Button>
+                    ) }
                 </div>
             </div>
 
