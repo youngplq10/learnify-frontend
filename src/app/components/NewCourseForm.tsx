@@ -10,7 +10,7 @@ const NewCourseForm = () => {
     const [description, setDescription] = useState("");
     const [thumbnail, setThumbnail] = useState<File | null>();
     const [promotingVideo, setPromotingVideo] = useState<File | null>();
-    const [category, setCategory] = useState("");
+    const [category, setCategory] = useState("C++");
 
     const [categories, setCategories] = useState<category[]>()
     const [loading, setLoading] = useState(true);

@@ -35,7 +35,7 @@ const ExploreCoursesListing = () => {
             <div className="row mx-2">
                 {courses.map((course, index) => (
                     <div className="col-4 p-3 my-auto" key={index}>
-                        <CourseCard title={course.title} description={course.description} author={course.creator.username} image={"http://localhost:8080" + course.bannerImageLink} />
+                        <CourseCard title={course.title} description={course.description} author={course.creator.username} image={course.bannerImageLink} />
                     </div>
                 ))}
             </div>

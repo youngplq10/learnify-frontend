@@ -19,7 +19,7 @@ const Hero = () => {
                 <Button variant='contained' href='/explore'>Explore Courses</Button>
             </div>
             <div className='col-auto'>
-                <Button variant='outlined' href='/create'>Create Course</Button>
+                <Button variant='outlined' href='/auth/create'>Create Course</Button>
             </div>
         </div>
         </div>

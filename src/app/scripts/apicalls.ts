@@ -112,7 +112,7 @@ export const getUserData = async () : Promise<user | null> => {
 
         return user.data as user
     } catch{
-        return null
+        throw new Error("getuserdata error")
     }
 }
 
