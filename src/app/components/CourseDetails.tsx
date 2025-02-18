@@ -28,6 +28,7 @@ const CourseDetails = ({ title } : { title: string }) => {
                 setCourse(course);
                 setIsLogged(isAuth)
                 setLoading(false)
+                console.log(course)
             }
             fetchCourse();
         }
@@ -85,6 +86,21 @@ const CourseDetails = ({ title } : { title: string }) => {
                             </Typography>
                         </AccordionDetails>
                     </Accordion>
+                    { course?.lessons.map((lesson, index) => {
+                        return (
+                            <Accordion className='border' key={index}>
+                                <AccordionSummary expandIcon={<ExpandMoreIcon sx={{ color: "text.primary" }} />}>
+                                    <Typography variant='body1' color='textPrimary'>{ lesson.title }</Typography>
+                                </AccordionSummary>
+                                <AccordionDetails>
+                                    <Typography variant='body2' color='textPrimary'>
+                                        { lesson.description }
+                                    </Typography>
+                                </AccordionDetails>
+                            </Accordion>
+                        )
+                    }) }
+                    
                 </div>
             </div>
 

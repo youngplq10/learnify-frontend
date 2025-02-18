@@ -8,7 +8,7 @@ export const theme = createTheme ({
       main: '#88a6e3',
     },
     secondary: {
-      main: '#193e88',
+      main: '#fff',
     },
     background: {
       paper: '#0a0e14',
@@ -22,7 +22,7 @@ export const theme = createTheme ({
     },
     error: {
         main: '#C60031'
-    }
+    },
   },
   typography: {
     fontFamily: 'Kanit',

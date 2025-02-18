@@ -29,7 +29,7 @@ export interface review{
     createdAtDate: Date,
 }
 
-export interface lesson{
+export interface lessons{
     id: {
         timestamp: number,
         date: Date,
@@ -53,6 +53,6 @@ export interface course{
     videoLink: string,
     bannerImageLink: string,
     category: category,
-    lessons: lesson[],
+    lessons: lessons[],
     reviews: review[],
 }

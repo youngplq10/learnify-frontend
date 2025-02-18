@@ -66,7 +66,7 @@ export const getCourse = async (title: string) : Promise<course> => {
                 'Content-Type': 'application/json'
             }
         })
-
+        console.log(res.data)
         return res.data as course
     } catch{
         throw new Error("Failed to fetch course");
@@ -112,7 +112,7 @@ export const getUserData = async () : Promise<user | null> => {
 
         return user.data as user
     } catch{
-        throw new Error("getuserdata error")
+        return null
     }
 }
 
@@ -146,6 +146,22 @@ export const createCourse = async (formData: FormData) => {
             transformRequest: [(data) => data],
         })
 
+        console.log(res)
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const createLesson = async (formData: FormData, courseTitle: string) => {
+    try {
+        const { jwt } = await getAllCookies();
+
+        const res = await axios.post(process.env.NEXT_PRIVATE_API + "/api/auth/lesson/" + courseTitle, formData, {
+            headers: {
+                'Authorization': 'Bearer ' + jwt?.value,
+                'Content-Type': 'multipart/form-data'
+            }
+        })
         console.log(res)
     } catch (error) {
         console.log(error)

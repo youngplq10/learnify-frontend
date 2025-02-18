@@ -6,6 +6,7 @@ import { parseFromLinkToString } from '../scripts/scripts';
 import { getCourse } from '../scripts/apicalls';
 import { course } from '../interfaces/interfaces';
 import { Typography } from '@mui/material';
+import NewLessonForm from '../components/NewLessonForm';
 
 const EditCourseSection = () => {
     const [pathArray, setPathArray] = useState<string[]>([]);
@@ -32,12 +33,12 @@ const EditCourseSection = () => {
         <div className='container-lg my-5'>
             <div className="row justify-content-center">
                 <div className="col-10 col-md-8 col-xl-5 mx-3">
-                    <Typography variant='h2' color='textPrimary'>Edit course details</Typography>
+                    <Typography variant='h2' color='textPrimary' className='my-3'>Edit course details</Typography>
                     <EditCourseForm title={decodeURIComponent(parseFromLinkToString(course?.title || ""))} description={course?.description || ""} category={course?.category.name || ""} />
                 </div>
                 <div className="col-10 col-md-8 col-xl-5 mx-3">
-                    <Typography variant='h2' color='textPrimary'>Create new lesson</Typography>
-                    
+                    <Typography variant='h2' color='textPrimary' className='my-3'>Create new lesson</Typography>
+                    <NewLessonForm />
                 </div>
             </div>
         </div>
