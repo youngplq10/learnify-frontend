@@ -1,10 +1,9 @@
-"use client"
+"use client";
 
-import { Button, Typography } from '@mui/material'
-import React, { useEffect, useState } from 'react'
-import { createCourse, createLesson, getCategories } from '../scripts/apicalls';
-import { category } from '../interfaces/interfaces';
-import { parseFromLinkToString } from '../scripts/scripts';
+import { Button, Typography } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import { createLesson } from '@/app/scripts/apicalls';
+import { parseFromLinkToString } from '@/app/scripts/scripts';
 
 const NewLessonForm = () => {
     const [title, setTitle] = useState("");
@@ -16,7 +15,7 @@ const NewLessonForm = () => {
     useEffect(() => {
         const path = window.location.pathname;
         setPathArray(path.split("/").filter(Boolean));
-    }, [])
+    }, []);
 
 
     const handleSubmit = async () => {
@@ -48,7 +47,7 @@ const NewLessonForm = () => {
 
             <Button variant='contained' className='my-2' onClick={handleSubmit}>Create lesson</Button>
         </form>
-    )
+    );
 }
 
-export default NewLessonForm
+export default NewLessonForm;

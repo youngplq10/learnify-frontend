@@ -1,12 +1,12 @@
-"use client"
+"use client";
 
-import React, { useEffect, useState } from 'react'
-import EditCourseForm from '../components/EditCourseForm';
-import { parseFromLinkToString } from '../scripts/scripts';
-import { getCourse } from '../scripts/apicalls';
-import { course } from '../interfaces/interfaces';
+import React, { useEffect, useState } from 'react';
+import EditCourseForm from '@/app/components/EditCourseForm';
+import { parseFromLinkToString } from '@/app/scripts/scripts';
+import { getCourse } from '@/app/scripts/apicalls';
+import { course } from '@/app/interfaces/interfaces';
 import { Typography } from '@mui/material';
-import NewLessonForm from '../components/NewLessonForm';
+import NewLessonForm from '@/app/components/NewLessonForm';
 
 const EditCourseSection = () => {
     const [pathArray, setPathArray] = useState<string[]>([]);
@@ -18,15 +18,14 @@ const EditCourseSection = () => {
         setPathArray(path.split("/").filter(Boolean));
 
         const fetchCourse = async () => {
-            const course = await getCourse(parseFromLinkToString(decodeURIComponent(pathArray[3])))
+            const course = await getCourse(parseFromLinkToString(decodeURIComponent(pathArray[3])));
             setCourse(course);
             setLoading(false);
-            console.log(course)
         }
-        fetchCourse()
-    }, [pathArray[3]]);
+        fetchCourse();
+    }, []);
 
-    if (loading || course?.category===undefined) return <p>loading</p>
+    if (loading || course?.category===undefined) return <p>loading</p>;
     
 
     return (
@@ -42,7 +41,7 @@ const EditCourseSection = () => {
                 </div>
             </div>
         </div>
-    )
+    );
 }
 
-export default EditCourseSection
+export default EditCourseSection;

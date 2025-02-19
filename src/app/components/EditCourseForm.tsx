@@ -1,7 +1,7 @@
-import { Button, Typography } from '@mui/material'
-import React, { useEffect, useState } from 'react'
-import { getCategories } from '../scripts/apicalls';
-import { category } from "@/app/interfaces/interfaces"
+import { Button, Typography } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import { getCategories } from '@/app/scripts/apicalls';
+import { category } from "@/app/interfaces/interfaces";
 
 const EditCourseForm = ({title, description, category} : {title: string, description: string, category: string}) => {
     
@@ -9,21 +9,23 @@ const EditCourseForm = ({title, description, category} : {title: string, descrip
     const [newDescription, setNewDescription] = useState(description);
     const [newCategory, setNewCategory] = useState(category);
     
-    const [categories, setCategories] = useState<category[]>()
+    const [categories, setCategories] = useState<category[]>();
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchCategories = async () => {
             const categories = await getCategories();
-            setCategories(categories)
-            setLoading(false)
+            setCategories(categories);
+            setLoading(false);
         }
-        fetchCategories()
-    }, [])
+        fetchCategories();
+    }, []);
 
     const handleSubmit = () => {
-        console.log(newTitle, newDescription, newCategory)
+        console.log(newTitle, newDescription, newCategory);
     }
+
+    if (loading) return <p>loading</p>;
 
     return (
         <form>
@@ -44,7 +46,7 @@ const EditCourseForm = ({title, description, category} : {title: string, descrip
 
             <Button variant='contained' className='my-2' onClick={handleSubmit}>Submit changes</Button>
         </form>
-    )
+    );
 }
 
-export default EditCourseForm
+export default EditCourseForm;

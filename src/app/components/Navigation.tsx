@@ -1,16 +1,16 @@
-"use client"
+"use client";
 
-import { Box, Typography, Menu, MenuItem, IconButton } from '@mui/material';
+import { Typography, Menu, MenuItem, IconButton } from '@mui/material';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
-import { getIsAuthenticated } from '../scripts/server';
+import { getIsAuthenticated } from '@/app/scripts/server';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useMediaQuery } from '@mui/material';
 
 const Navigation = () => {
     const [isLogged, setIsLogged] = useState(false);
     const [loading, setLoading] = useState(true);
-    const [anchorEl, setAnchorEl] = useState(null);
+    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const isMobile = useMediaQuery("(max-width:768px)");
 
     useEffect(() => {
@@ -22,7 +22,7 @@ const Navigation = () => {
         getAuth();
     }, []);
 
-    const handleMenuOpen = (event: { currentTarget: React.SetStateAction<null>; }) => {
+    const handleMenuOpen = (event: React.MouseEvent<HTMLButtonElement>) => {
         setAnchorEl(event.currentTarget);
     };
 

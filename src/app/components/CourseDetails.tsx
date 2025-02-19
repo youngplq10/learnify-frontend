@@ -1,13 +1,14 @@
-"use client"
+"use client";
 
-import { Accordion, AccordionDetails, AccordionSummary, Button, Dialog, DialogTitle, Typography } from '@mui/material'
-import Image from 'next/image'
-import React, { useEffect, useState } from 'react'
+import { Accordion, AccordionDetails, AccordionSummary, Button, Dialog, DialogTitle, Typography } from '@mui/material';
+import Image from 'next/image';
+import React, { useEffect, useState } from 'react';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { getCourse, getUserData, signUpForCourse } from '../scripts/apicalls';
-import { parseFromLinkToString } from '../scripts/scripts';
-import { course, user } from '../interfaces/interfaces';
-import { getAllCookies, getIsAuthenticated } from '../scripts/server';
+import { getCourse, getUserData, signUpForCourse } from '@/app/scripts/apicalls';
+import { parseFromLinkToString } from '@/app/scripts/scripts';
+import { course, user } from '@/app/interfaces/interfaces';
+import { getIsAuthenticated } from '@/app/scripts/server';
+import noimage from "@/app/assets/noimage.jpeg";
 
 const CourseDetails = ({ title } : { title: string }) => {
     const [course, setCourse] = useState<course>();
@@ -21,45 +22,55 @@ const CourseDetails = ({ title } : { title: string }) => {
             const fetchCourse = async () => {
                 const course = await getCourse(decodeURIComponent(parseFromLinkToString(title)));
                 const isAuth = await getIsAuthenticated();
-                const user = await getUserData();
-                if (user!==null){
-                    setUser(user)
+                if (isAuth) { 
+                    const user = await getUserData(); 
+                    if (user!==null){
+                        setUser(user);
+                    }
                 }
                 setCourse(course);
-                setIsLogged(isAuth)
-                setLoading(false)
-                console.log(course)
+                setIsLogged(isAuth);
+                setLoading(false);
             }
             fetchCourse();
         }
-    }, [title])
+    }, [title]);
 
     const handleSignUpForCourse = () => {
         if (isLogged) {
-            signUpForCourse(course?.title || "")
+            signUpForCourse(course?.title || "");
         } else {
-            setPopWindow(true)
+            setPopWindow(true);
         }
     }
 
     const handleHidePopWindow = () => {
-        setPopWindow(false)
+        setPopWindow(false);
     }
 
-    const isParticipating = user?.learningCourses.some(c => c.id.timestamp === course?.id.timestamp)
+    const isParticipating = user?.learningCourses.some(c => c.id.timestamp === course?.id.timestamp);
 
-    if (loading) return <p>loading</p>
+    if (loading) return <p>loading</p>;
 
     return (
         <>
             <div className="row my-5">
                 <div className="col-12 col-md-6 p-3 position-relative" style={{ height: "350px" }}>
-                    <Image
-                        src={"http://localhost:8080" + course?.bannerImageLink}
-                        fill
-                        alt='course thumbnail'
-                        unoptimized
+                    { process.env.NEXT_PUBLIC_API ? (
+                        <Image
+                            src={process.env.NEXT_PUBLIC_API + course?.bannerImageLink}
+                            fill
+                            alt='course thumbnail'
+                            unoptimized
                         />
+                    ) : (
+                        <Image
+                            src={noimage}
+                            fill
+                            alt='course thumbnail'
+                            unoptimized
+                        />
+                    ) }
                 </div>
                 <div className="col-12 col-md-6 p-5 my-auto">
                     <Typography variant='h4' color='textPrimary'>{ course?.title }</Typography>
@@ -75,17 +86,6 @@ const CourseDetails = ({ title } : { title: string }) => {
 
             <div className="row my-5">
                 <div className="col-12 col-md-6">
-                    <Accordion className='border'>
-                        <AccordionSummary expandIcon={<ExpandMoreIcon sx={{ color: "text.primary" }} />}>
-                            <Typography variant='body1' color='textPrimary'>Title of lesson no 1</Typography>
-                        </AccordionSummary>
-                        <AccordionDetails>
-                            <Typography variant='body2' color='textPrimary'>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                                malesuada lacus ex, sit amet blandit leo lobortis eget.
-                            </Typography>
-                        </AccordionDetails>
-                    </Accordion>
                     { course?.lessons.map((lesson, index) => {
                         return (
                             <Accordion className='border' key={index}>
@@ -100,7 +100,6 @@ const CourseDetails = ({ title } : { title: string }) => {
                             </Accordion>
                         )
                     }) }
-                    
                 </div>
             </div>
 
@@ -112,4 +111,4 @@ const CourseDetails = ({ title } : { title: string }) => {
     )
 }
 
-export default CourseDetails
+export default CourseDetails;

@@ -1,9 +1,9 @@
-"use client"
+"use client";
 
-import { Button, Typography } from '@mui/material'
-import React, { useEffect, useState } from 'react'
-import { createCourse, getCategories } from '../scripts/apicalls';
-import { category } from '../interfaces/interfaces';
+import { Button, Typography } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import { createCourse, getCategories } from '@/app/scripts/apicalls';
+import { category } from '@/app/interfaces/interfaces';
 
 const NewCourseForm = () => {
     const [title, setTitle] = useState("");
@@ -12,17 +12,17 @@ const NewCourseForm = () => {
     const [promotingVideo, setPromotingVideo] = useState<File | null>();
     const [category, setCategory] = useState("C++");
 
-    const [categories, setCategories] = useState<category[]>()
+    const [categories, setCategories] = useState<category[]>();
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchCategories = async () => {
             const categories = await getCategories();
-            setCategories(categories)
-            setLoading(false)
+            setCategories(categories);
+            setLoading(false);
         }
-        fetchCategories()
-    }, [])
+        fetchCategories();
+    }, []);
 
     const handleSubmit = () => {
         if (thumbnail && promotingVideo) {
@@ -36,13 +36,11 @@ const NewCourseForm = () => {
 
             createCourse(formData);
 
-            window.location.href = "/auth/dashboard"
+            window.location.href = "/auth/dashboard";
         }
     }
 
-    if (loading) return <p>loading</p>
-
-    console.log(categories)
+    if (loading) return <p>loading</p>;
 
     return (
         <form>
@@ -69,7 +67,7 @@ const NewCourseForm = () => {
 
             <Button variant='contained' className='my-2' onClick={handleSubmit}>Create course</Button>
         </form>
-    )
+    );
 }
 
-export default NewCourseForm
+export default NewCourseForm;

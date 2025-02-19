@@ -1,14 +1,12 @@
-"use client"
+"use client";
 
-import React, { useEffect, useState } from 'react'
-import { course, user } from '../interfaces/interfaces'
-import { getUserData } from '../scripts/apicalls';
+import React, { useEffect, useState } from 'react';
+import { user } from '@/app/interfaces/interfaces';
+import { getUserData } from '@/app/scripts/apicalls';
 import { Button, Typography } from '@mui/material';
-import CourseCard from '../components/CourseCard';
+import CourseCard from '@/app/components/CourseCard';
 
 const Dashboard = () => {
-    const [creatingCourses, setCreatingCourses] = useState<course[]>([]);
-    const [learningCourses, setLearningCourses] = useState<course[]>([]);
     const [user, setUser] = useState<user | null>();
 
     const [loading, setLoading] = useState(true);
@@ -20,11 +18,9 @@ const Dashboard = () => {
             setLoading(false);
         }
         fetchUser();
-    }, [])
+    }, []);
 
-    if (loading) return <p>loading</p>
-
-    console.log(user)
+    if (loading) return <p>loading</p>;
 
     return (
         <div className='container-lg mt-5'>
@@ -43,7 +39,7 @@ const Dashboard = () => {
                 { user?.learningCourses.map((course, index) => {
                     return (
                         <div className="col-10 col-md-6 col-lg-4" key={index}>
-                            <CourseCard title={course.title} description={course.description} author={course.creator} image={course.bannerImageLink} owner={false} />
+                            <CourseCard title={course.title} description={course.description} author={course.creator.username} image={course.bannerImageLink} owner={false} />
                         </div>
                     )
                 }) }
@@ -62,7 +58,7 @@ const Dashboard = () => {
                 }) }
             </div>
         </div>
-    )
+    );
 }
 
-export default Dashboard
+export default Dashboard;

@@ -1,8 +1,8 @@
 import { Alert, Button, Typography } from '@mui/material'
 import Link from 'next/link';
 import React, { useState } from 'react'
-import { validateNewUser } from '../scripts/validation';
-import { register } from '../scripts/apicalls';
+import { validateNewUser } from '@/app/scripts/validation';
+import { register } from '@/app/scripts/apicalls';
 
 const RegisterForm = () => {
     const [username, setUsername] = useState("");
@@ -51,7 +51,7 @@ const RegisterForm = () => {
                 { errorMessage }
             </Alert>
         </form>
-    )
+    );
 }
 
-export default RegisterForm
+export default RegisterForm;

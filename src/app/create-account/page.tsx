@@ -1,10 +1,8 @@
-"use client"
+"use client";
 
-import React, { useEffect, useState } from 'react'
-import { getIsAuthenticated } from '@/app/scripts/server';
-import Register from '../modules/Register';
-import RegisterForm from '../components/RegisterForm';
-import Navbar from '../modules/Navbar';
+import React from 'react';
+import Register from '@/app/modules/Register';
+import Navbar from '@/app/modules/Navbar';
 
 const page = () => {
     return (
@@ -12,7 +10,7 @@ const page = () => {
             <Navbar />
             <Register />
         </>
-    )
+    );
 }
 
-export default page
+export default page;

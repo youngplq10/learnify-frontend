@@ -1,10 +1,10 @@
-"use server"
+"use server";
 
-import axios from "axios"
+import axios from "axios";
 import { getAllCookies, setAuthToken } from "./server";
-import { category, course, user } from "../interfaces/interfaces";
+import { category, course, user } from "@/app/interfaces/interfaces";
 
-export const login = async (username: string, password: string) : Promise<Boolean> => {
+export const login = async (username: string, password: string) : Promise<boolean> => {
     try {
         const res = await axios.post(process.env.NEXT_PRIVATE_API + "/api/public/login", {
             username: username,
@@ -21,12 +21,12 @@ export const login = async (username: string, password: string) : Promise<Boolea
             setAuthToken(res.data)
             return true;
         }
-    } catch (error){
+    } catch{
         return false
     }
 }
 
-export const register = async (username: string, email: string, password: string) : Promise<Boolean> => {
+export const register = async (username: string, email: string, password: string) : Promise<boolean> => {
     try {
         const res = await axios.post(process.env.NEXT_PRIVATE_API + "/api/public/register", {
             username: username,
@@ -138,7 +138,7 @@ export const createCourse = async (formData: FormData) => {
 
         console.log(formData.get("thumbnail"))
 
-        const res = await axios.post(process.env.NEXT_PRIVATE_API + "/api/auth/course", formData, {
+        await axios.post(process.env.NEXT_PRIVATE_API + "/api/auth/course", formData, {
             headers: {
                 'Authorization': 'Bearer ' + jwt?.value,
                 'Content-Type': 'multipart/form-data'
@@ -146,9 +146,7 @@ export const createCourse = async (formData: FormData) => {
             transformRequest: [(data) => data],
         })
 
-        console.log(res)
-    } catch (error) {
-        console.log(error)
+    } catch {
     }
 }
 
@@ -156,14 +154,14 @@ export const createLesson = async (formData: FormData, courseTitle: string) => {
     try {
         const { jwt } = await getAllCookies();
 
-        const res = await axios.post(process.env.NEXT_PRIVATE_API + "/api/auth/lesson/" + courseTitle, formData, {
+        await axios.post(process.env.NEXT_PRIVATE_API + "/api/auth/lesson/" + courseTitle, formData, {
             headers: {
                 'Authorization': 'Bearer ' + jwt?.value,
                 'Content-Type': 'multipart/form-data'
             }
-        })
-        console.log(res)
-    } catch (error) {
-        console.log(error)
+        });
+
+    } catch {
+        
     }
 }

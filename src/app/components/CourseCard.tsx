@@ -1,16 +1,15 @@
-"use client"
+"use client";
 
-import { Button, Card, CardActions, CardContent, CardMedia, Typography } from '@mui/material'
-import React, { useEffect, useState } from 'react'
-import { parseToLink } from '../scripts/scripts'
-import { getUserData } from '../scripts/apicalls'
+import { Button, Card, CardActions, CardContent, CardMedia, Typography } from '@mui/material';
+import React from 'react';
+import { parseToLink } from '@/app/scripts/scripts';
 
 const CourseCard = ({title, author, description, image, owner} : {title: string, author: string, description: string, image: string, owner: boolean}) => {
 
     return (
         <Card>
             <CardMedia
-                image={"http://localhost:8080" + image}
+                image={process.env.NEXT_PUBLIC_API + image}
                 sx={{ height: '180px' }}
             />
             <CardContent>
@@ -28,7 +27,7 @@ const CourseCard = ({title, author, description, image, owner} : {title: string,
                 ) }
             </CardActions>
         </Card>
-    )
+    );
 }
 
-export default CourseCard
+export default CourseCard;

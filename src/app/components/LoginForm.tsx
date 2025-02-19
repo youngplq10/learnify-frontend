@@ -1,10 +1,10 @@
-"use client"
+"use client";
 
-import { Alert, AlertTitle, Button, Typography } from '@mui/material'
-import Link from 'next/link'
-import React, { useState } from 'react'
-import { validateExistingUser } from '../scripts/validation'
-import { login } from '../scripts/apicalls'
+import { Alert, Button, Typography } from '@mui/material';
+import Link from 'next/link';
+import React, { useState } from 'react';
+import { validateExistingUser } from '@/app/scripts/validation';
+import { login } from '@/app/scripts/apicalls';
 
 const LoginForm = () => {
     const [username, setUsername] = useState("");
@@ -37,12 +37,12 @@ const LoginForm = () => {
             <label htmlFor='password' className='form-label'><Typography variant='body1' color='textPrimary'>Password</Typography></label>
             <input type='password' className='form-control' value={password} onChange={(e) => setPassword(e.target.value)} id='password' />
             <Button variant='contained' className='my-2' onClick={handleLogin}>Log in</Button>
-            <Typography variant='body1' color='textPrimary'>You don't have an account? <Link href="/create-account">Create one</Link> now!</Typography>
+            <Typography variant='body1' color='textPrimary'>You don &apos t have an account? <Link href="/create-account">Create one</Link> now!</Typography>
             <Alert hidden={errorState} severity='error' className='mt-5'>
                 { errorMessage }
             </Alert>
         </form>
-    )
+    );
 }
 
-export default LoginForm
+export default LoginForm;

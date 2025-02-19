@@ -1,6 +1,6 @@
-import EditCourseSection from '@/app/modules/EditCourseSection'
-import Navbar from '@/app/modules/Navbar'
-import React from 'react'
+import EditCourseSection from '@/app/modules/EditCourseSection';
+import Navbar from '@/app/modules/Navbar';
+import React from 'react';
 
 const page = () => {
     return (
@@ -8,7 +8,7 @@ const page = () => {
             <Navbar />
             <EditCourseSection />
         </>
-    )
+    );
 }
 
-export default page
+export default page;

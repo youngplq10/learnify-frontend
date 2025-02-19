@@ -2,7 +2,7 @@
 
 import { Breadcrumbs, Link } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { parseFromLinkToString } from "../scripts/scripts";
+import { parseFromLinkToString } from "@/app/scripts/scripts";
 
 const Breadcrumb = ({ pathArray }: { pathArray: string[] }) => {
     const [thisPathArray, setThisPathArray] = useState<string[]>([]);
